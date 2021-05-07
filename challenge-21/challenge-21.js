@@ -1,5 +1,5 @@
     (function(window, document){
-
+      'use strict'
     /*
     O desafio de hoje será um pequeno projeto: um cronômetro!
     As regras para criação do cronômetro são as seguintes:
@@ -17,58 +17,61 @@
     dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
     */
     // ?
-    
-    // usamos data-js, pois nao utilizamos nem 'id' e nem 'classe' para trabalgar com js    
+
+    // usamos data-js, pois nao utilizamos nem 'id' e nem 'classe' para trabalhar com js
     let $inputField = document.querySelector('[data-js="input"]');
     let $startButton = document.querySelector('[data-js="start"]');
     let $resetButton =  document.querySelector('[data-js="reset"]');
-    let $stopButton =  document.querySelector('[data-js="stop"]'); 
+    let $stopButton =  document.querySelector('[data-js="stop"]');
 
-    $inputField.value = 0;    
-    let counter = 0;  
-    let temporizador;  
-    
-    
-    //MANEIRA QUE O PROFESSOR FEZ, FICOU MAIS CONCISO, MAIS MODULAR 
+
+   
+    let temporizador;
+
+
+    //MANEIRA QUE O PROFESSOR FEZ, FICOU MAIS CONCISO, MAIS MODULAR
     //ALEM DISSO AS FUNCOES ESTAO FORA DO eventListener e podemos reaproveita-las
-    
+
     $startButton.addEventListener('click', timer, false );
     $stopButton.addEventListener('click', stop, false );
     $resetButton.addEventListener('click', reset, false );
 
-   
+
     function timer(){
-        $inputField.value = counter++;
+        console.log( typeof $inputField.value )
+        $inputField.value = +$inputField.value + 1;
         temporizador = setTimeout(timer, 1000);
+        console.log('temp',temporizador)
     }
-    
-    //Dentro da funcao de time, como o professor colocou o valor = '0' 
-    //no input type= "text" do HTML, ele precisou transformar o valor 
+
+    //Dentro da funcao de time, como o professor colocou o valor = '0'
+    //no input type= "text" do HTML, ele precisou transformar o valor
     //para number, e usou o  '+' . Dai somou com +1
 
      //$inputField.value = +$inputField.value + 1;
 
     function stop(){
-
         clearTimeout(temporizador);
     }
-    
+
     function reset(){
 
         $inputField.value = 0;
         stop();
+        console.log('temp na reset',temporizador)
+        $inputField.value = 0;
     }
-    
-    
+
+
     //MANEIRA QUE EU FIZ:
-    // $startButton.addEventListener('click', function(){        
-    //     function timer(){        
+    // $startButton.addEventListener('click', function(){
+    //     function timer(){
     //         $inputField.value = counter++;
     //         temporizador = setTimeout( timer, 1000);
     //         console.log('linha', temporizador);
     //     }
     //     timer();
-        
+
     // }, false);
 
 
@@ -82,6 +85,6 @@
     //     $inputField.value  = 0;
     //     clearTimeout(temporizador);
     // }, false);
-    
+
 
     })(window, document);
